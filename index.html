@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #f5f3ed; }
+  * { box-sizing: border-box; }
+  a { color: #1e6b52; text-decoration: none; }
+  a:hover { color: #c2571f; }
+  table { border-collapse: collapse; width: 100%; }
+</style>
+</helmet>
+<div style="display:flex;align-items:flex-start;min-height:100vh;background:#f5f3ed;font-family:Lato,'Helvetica Neue',sans-serif;color:#2a2a28">
+
+  <aside style="width:272px;flex:0 0 272px;align-self:stretch;background:#16262d;position:sticky;top:0;height:100vh;overflow-y:auto;padding-bottom:30px">
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:26px 24px 24px;border-bottom:1px solid #24383f">
+      <div style="width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:#1e6b52;display:flex;align-items:center;justify-content:center;font-size:17px">💧</div>
+      <div>
+        <div style="font:700 21px/1.15 'Source Serif 4',Georgia,serif;color:#f7f5ef">{{ societyName }}</div>
+        <div style="font:400 10px/1.4 Lato,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7d9099;margin-top:5px">Society Operations Suite</div>
+      </div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px;padding:20px 14px 0">
+      <sc-for list="{{ nav }}" as="group" hint-placeholder-count="4">
+        <div style="font:400 10px/1 Lato,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6d8189;padding:18px 12px 10px">{{ group.title }}</div>
+        <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="3">
+          <button type="button" onClick="{{ item.go }}" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;border-radius:9px;padding:11px 12px;font:400 15px/1.2 Lato,sans-serif;background:{{ item.bg }};color:{{ item.fg }}">
+            <span style="font-size:15px;width:19px;text-align:center">{{ item.icon }}</span>
+            <span>{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </sc-for>
+    </nav>
+  </aside>
+
+  <main style="flex:1;min-width:0;padding:36px 44px 80px;max-width:1560px">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px;letter-spacing:-.01em">Good morning! ☀️</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:660px;text-wrap:pretty">Here's what's happening at {{ societyName }} today — 5 blocks (A, B, C, D, E), 104 flats in total.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #e8e4d9;border-radius:999px;padding:9px 17px;font:400 14px Lato,sans-serif;color:#5f5f57;white-space:nowrap">
+          <span style="width:8px;height:8px;border-radius:50%;background:#1e6b52"></span>All systems synced · just now
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ homeKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 33px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px/1.4 Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:22px;margin-top:22px;align-items:start">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px 22px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0">Collection trend</h2>
+            <span style="font:400 13px Lato,sans-serif;color:#8a8a80">Income vs expense, last 6 months</span>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:0;height:220px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:132px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:88px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">Mar</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:146px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:79px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">Apr</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:118px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:104px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">May</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:158px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:92px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">Jun</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:172px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:112px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">Jul</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:11px;flex:1">
+              <div style="display:flex;align-items:flex-end;gap:6px;height:190px"><div style="width:22px;height:140px;background:#1e6b52;border-radius:3px 3px 0 0"></div><div style="width:22px;height:85px;background:#c2571f;border-radius:3px 3px 0 0"></div></div>
+              <div style="font:400 13px Lato,sans-serif;color:#8a8a80">Aug</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:22px;margin-top:16px;padding-top:16px;border-top:1px solid #efece3">
+            <div style="display:flex;align-items:center;gap:8px;font:400 13px Lato,sans-serif;color:#5f5f57"><span style="width:10px;height:10px;border-radius:2px;background:#1e6b52"></span>Income</div>
+            <div style="display:flex;align-items:center;gap:8px;font:400 13px Lato,sans-serif;color:#5f5f57"><span style="width:10px;height:10px;border-radius:2px;background:#c2571f"></span>Expense</div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 8px">Attention needed</h2>
+          <sc-for list="{{ attention }}" as="a" hint-placeholder-count="6">
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 0;border-bottom:1px solid #efece3">
+              <div style="font:400 15px/1.35 Lato,sans-serif">{{ a.text }}</div>
+              <div style="font:700 14px 'Source Serif 4',Georgia,serif;color:{{ a.tone }};white-space:nowrap">{{ a.amount }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 19px/1 'Source Serif 4',Georgia,serif;margin:0 0 18px">Open complaints</h2>
+          <sc-for list="{{ homeComplaints }}" as="c" hint-placeholder-count="3">
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+              <span>{{ c.text }}</span>
+              <span style="font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:{{ c.tone }};white-space:nowrap;padding-top:2px">{{ c.tag }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 19px/1 'Source Serif 4',Georgia,serif;margin:0 0 18px">Staff on duty today</h2>
+          <sc-for list="{{ homeStaff }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+              <span>{{ s.text }}</span>
+              <span style="color:#8a8a80;font-size:14px;white-space:nowrap">{{ s.meta }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 19px/1 'Source Serif 4',Georgia,serif;margin:0 0 18px">Today at the society</h2>
+          <sc-for list="{{ homeEvents }}" as="e" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+              <span>{{ e.text }}</span>
+              <span style="color:#8a8a80;font-size:14px;white-space:nowrap">{{ e.meta }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBlocks }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 1 · Property Master</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Blocks, floors &amp; flats</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px;text-wrap:pretty">5 blocks — A, B, C, D, E — each with 4 floors. Blocks B and C run units A–D per floor; Blocks A, D and E run wider, A–F. Colour shows occupancy and due status.</p>
+        </div>
+        <button type="button" onClick="{{ addFlat }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ Add Flat</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="5">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px">
+              <h2 style="font:700 19px/1 'Source Serif 4',Georgia,serif;margin:0">{{ b.name }}</h2>
+              <span style="font:400 13px Lato,sans-serif;color:#8a8a80">{{ b.count }} flats</span>
+            </div>
+            <sc-for list="{{ b.floors }}" as="f" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:9px">
+                <span style="font:400 13px Lato,sans-serif;color:#8a8a80;width:12px">{{ f.n }}</span>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ f.flats }}" as="u" hint-placeholder-count="6">
+                    <span style="display:flex;align-items:center;justify-content:center;width:44px;height:31px;border-radius:6px;font:700 13px 'IBM Plex Mono',monospace;background:{{ u.bg }};color:{{ u.fg }}">{{ u.id }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;gap:26px;margin:22px 0 26px">
+        <div style="display:flex;align-items:center;gap:9px;font:400 14px Lato,sans-serif;color:#5f5f57"><span style="width:11px;height:11px;border-radius:3px;background:#1e6b52"></span>Occupied, dues clear</div>
+        <div style="display:flex;align-items:center;gap:9px;font:400 14px Lato,sans-serif;color:#5f5f57"><span style="width:11px;height:11px;border-radius:3px;background:#c2571f"></span>Occupied, dues pending</div>
+        <div style="display:flex;align-items:center;gap:9px;font:400 14px Lato,sans-serif;color:#5f5f57"><span style="width:11px;height:11px;border-radius:3px;background:#ddd8cb"></span>Vacant</div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0">Flat register — Block A</h2>
+          <span style="font:400 13px Lato,sans-serif;color:#8a8a80">6 units per floor (A–F)</span>
+        </div>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flat</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Type</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Carpet area</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">UDS</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Parking</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ flatRegister }}" as="r" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.flat }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.type }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.carpet }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.uds }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.parking }}</td>
+                <td style="padding:15px 14px 15px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ r.bg }};color:{{ r.fg }}">{{ r.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isResidents }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 2 · Owners &amp; Residents</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Residents directory</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0">Owner and tenant records, family members, emergency contacts, and move history.</p>
+        </div>
+        <button type="button" onClick="{{ addResident }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ Add Resident</button>
+      </div>
+
+      <div style="display:flex;gap:14px;margin:28px 0 22px">
+        <input type="text" placeholder="Search by name or flat no." style="border:1px solid #e0dccf;background:#fff;border-radius:9px;padding:12px 16px;font:400 15px Lato,sans-serif;width:250px;color:#2a2a28" />
+        <select style="border:1px solid #e0dccf;background:#fff;border-radius:9px;padding:12px 14px;font:400 15px Lato,sans-serif;color:#2a2a28">
+          <option>All blocks</option><option>Block A</option><option>Block B</option><option>Block C</option><option>Block D</option><option>Block E</option>
+        </select>
+        <select style="border:1px solid #e0dccf;background:#fff;border-radius:9px;padding:12px 14px;font:400 15px Lato,sans-serif;color:#2a2a28">
+          <option>Owner + Tenant</option><option>Owners only</option><option>Tenants only</option>
+        </select>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px">
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Name</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flat</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Type</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Family</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Contact</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Emergency contact</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Since</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ residents }}" as="r" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.name }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.flat }}</td>
+                <td style="padding:15px 14px 15px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ r.bg }};color:{{ r.fg }}">{{ r.type }}</span></td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57">{{ r.family }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.phone }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57">{{ r.emergency }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ r.since }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 8px">Move-in / Move-out log</h2>
+        <sc-for list="{{ moveLog }}" as="m" hint-placeholder-count="4">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid #efece3;font:400 15px Lato,sans-serif">
+            <span>{{ m.text }}</span>
+            <span style="font:700 14px 'Source Serif 4',Georgia,serif;white-space:nowrap">{{ m.date }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAccess }}">
+      <div>
+        <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 3 · User &amp; Access</div>
+        <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Users &amp; role permissions</h1>
+        <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px;text-wrap:pretty">Seven roles across the society. A role decides which modules a login can open and whether it can only read or also edit.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ roleCards }}" as="r" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px">
+            <div style="font:700 17px/1 'Source Serif 4',Georgia,serif">{{ r.role }}</div>
+            <div style="font:400 14px Lato,sans-serif;color:#8a8a80;margin:10px 0 14px">{{ r.count }}</div>
+            <div style="font:400 14px/1.5 Lato,sans-serif;color:#5f5f57">{{ r.scope }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px;overflow-x:auto">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Permission matrix</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Module</th>
+            <sc-for list="{{ permRoles }}" as="h" hint-placeholder-count="6">
+              <th style="text-align:center;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 12px 14px">{{ h }}</th>
+            </sc-for>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ permRows }}" as="row" hint-placeholder-count="8">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:13px 14px 13px 0;border-top:1px solid #efece3;white-space:nowrap">{{ row.module }}</td>
+                <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="6">
+                  <td style="text-align:center;padding:13px 12px;border-top:1px solid #efece3;font:400 14px Lato,sans-serif;color:{{ c.fg }}">{{ c.mark }}</td>
+                </sc-for>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:24px;margin-top:20px;padding-top:18px;border-top:1px solid #efece3;font:400 13px Lato,sans-serif;color:#8a8a80">
+          <span>● Full — create, edit, approve</span><span>◐ Read only</span><span>— No access</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBills }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 4 · Maintenance Billing</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">{{ billTitle }}</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px;text-wrap:pretty">{{ billIntro }}</p>
+        </div>
+        <button type="button" onClick="{{ generateBills }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">{{ billCta }}</button>
+      </div>
+
+      <div style="background:#fffdf8;border:1px solid #e8e4d9;border-radius:12px;padding:24px 28px;margin-top:28px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0">Billing cycle settings</h2>
+          <span style="font:400 13px Lato,sans-serif;color:#8a8a80">Configurable per society</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:38px;margin-top:18px;font:400 15px Lato,sans-serif;color:#5f5f57">
+          <div>Billing frequency: <strong style="color:#2a2a28">{{ freqLabel }}</strong></div>
+          <div>Bill raised on: <strong style="color:#2a2a28">{{ raisedOn }}</strong></div>
+          <div>Due date: <strong style="color:#2a2a28">15th of the billing month</strong></div>
+          <div>Penalty: <strong style="color:#2a2a28">₹{{ penalty }}/day</strong> after due date</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px">
+        <sc-for list="{{ billKpis }}" as="k" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 33px/1.1 'Source Serif 4',Georgia,serif;margin-top:14px">{{ k.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0">{{ billRegisterTitle }}</h2>
+          <span style="font:400 13px Lato,sans-serif;color:#8a8a80">Penalty = ₹{{ penalty }}/day from 16 Jul until paid</span>
+        </div>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flat</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Resident</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">{{ maintColLabel }}</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Special contribution</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Prev. balance</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Penalty</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Total due</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ bills }}" as="b" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ b.flat }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ b.resident }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ b.maint }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57">{{ b.special }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57">{{ b.prev }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57">{{ b.penalty }}</td>
+                <td style="font:500 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ b.total }}</td>
+                <td style="padding:15px 14px 15px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ b.bg }};color:{{ b.fg }}">{{ b.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0">Receipt preview — A-1A</h2>
+          <button type="button" onClick="{{ downloadReceipt }}" style="border:1px solid #e0dccf;background:#fff;cursor:pointer;border-radius:8px;padding:10px 18px;font:700 14px Lato,sans-serif;color:#2a2a28">Download PDF</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;font:400 15px/1.5 Lato,sans-serif;color:#5f5f57">
+          <div>Receipt No: MR/2026/Q3/0101 · Date: 05-Jul-2026</div>
+          <div>Flat A-1A — Ramesh Kumar</div>
+          <div>{{ receiptLine }}</div>
+          <div style="font-weight:700;color:#2a2a28">Amount Paid: ₹12,600 — via UPI</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAccounts }}">
+      <div>
+        <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 5 · Accounting &amp; Finance</div>
+        <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Accounts, vouchers &amp; budget</h1>
+        <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px;text-wrap:pretty">Financial year 2026–27, as of 27 Aug 2026. Books close monthly; the last audit was signed off for FY 2025–26.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ finKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 30px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-top:22px;align-items:start">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Voucher register — August</h2>
+          <table>
+            <thead><tr>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Voucher</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Head</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Paid to</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Amount</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Approval</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ vouchers }}" as="v" hint-placeholder-count="6">
+                <tr>
+                  <td style="font:400 14px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ v.no }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ v.head }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ v.party }}</td>
+                  <td style="font:500 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ v.amount }}</td>
+                  <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ v.bg }};color:{{ v.fg }}">{{ v.state }}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Bank &amp; cash</h2>
+            <sc-for list="{{ banks }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid #efece3">
+                <div>
+                  <div style="font:400 15px Lato,sans-serif">{{ b.name }}</div>
+                  <div style="font:400 13px Lato,sans-serif;color:#8a8a80;margin-top:3px">{{ b.meta }}</div>
+                </div>
+                <div style="font:700 16px 'Source Serif 4',Georgia,serif;white-space:nowrap">{{ b.balance }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Budget vs actual</h2>
+            <sc-for list="{{ budget }}" as="b" hint-placeholder-count="5">
+              <div style="padding:13px 0;border-top:1px solid #efece3">
+                <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif;margin-bottom:9px">
+                  <span>{{ b.head }}</span><span style="color:#5f5f57">{{ b.figures }}</span>
+                </div>
+                <div style="height:7px;border-radius:4px;background:#efece3;overflow:hidden">
+                  <div style="height:7px;border-radius:4px;width:{{ b.pct }};background:{{ b.tone }}"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Statements &amp; audit</h2>
+            <sc-for list="{{ statements }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+                <span>{{ s.name }}</span><span style="color:#1e6b52;font-size:14px;white-space:nowrap">{{ s.action }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isHelpdesk }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 6 · Complaints &amp; Helpdesk</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Helpdesk</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Residents raise tickets from the app; the manager assigns them to staff or a vendor and closes with resident feedback.</p>
+        </div>
+        <button type="button" onClick="{{ addTicket }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ New Complaint</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ helpKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 30px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Ticket queue</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Ticket</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flat</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Category</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Complaint</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Priority</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Assigned to</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Photos</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ tickets }}" as="t" hint-placeholder-count="7">
+              <tr>
+                <td style="font:400 14px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ t.id }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ t.flat }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ t.category }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#5f5f57;max-width:280px">{{ t.text }}</td>
+                <td style="padding:15px 14px 15px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ t.pbg }};color:{{ t.pfg }}">{{ t.priority }}</span></td>
+                <td style="font:400 15px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3">{{ t.owner }}</td>
+                <td style="font:400 14px Lato,sans-serif;padding:15px 14px 15px 0;border-top:1px solid #efece3;color:#8a8a80">{{ t.photos }}</td>
+                <td style="padding:15px 14px 15px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ t.sbg }};color:{{ t.sfg }}">{{ t.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Resolution trail — HD-2041</h2>
+          <sc-for list="{{ trail }}" as="t" hint-placeholder-count="4">
+            <div style="display:flex;gap:16px;padding:13px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+              <span style="color:#8a8a80;font-size:14px;width:104px;flex:0 0 104px">{{ t.when }}</span>
+              <span>{{ t.what }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Recent resident feedback</h2>
+          <sc-for list="{{ feedback }}" as="f" hint-placeholder-count="4">
+            <div style="padding:14px 0;border-top:1px solid #efece3">
+              <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif">
+                <span>{{ f.who }}</span><span style="color:#b8862a">{{ f.stars }}</span>
+              </div>
+              <div style="font:400 14px/1.5 Lato,sans-serif;color:#5f5f57;margin-top:5px">{{ f.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSecurity }}">
+      <div>
+        <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 7 · Security Management</div>
+        <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Security &amp; gate operations</h1>
+        <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Three shifts, eight guards, one supervisor. Shift handover and patrol checklists are signed on the gate tablet.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ shifts }}" as="s" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font:700 18px/1 'Source Serif 4',Georgia,serif">{{ s.name }}</div>
+              <span style="display:inline-block;border-radius:999px;padding:4px 12px;font:400 12px Lato,sans-serif;background:{{ s.bg }};color:{{ s.fg }}">{{ s.state }}</span>
+            </div>
+            <div style="font:400 14px Lato,sans-serif;color:#8a8a80;margin:9px 0 14px">{{ s.hours }}</div>
+            <div style="font:400 15px/1.6 Lato,sans-serif;color:#5f5f57">{{ s.staff }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:22px;margin-top:22px;align-items:start">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Guard attendance — 27 Aug</h2>
+          <table>
+            <thead><tr>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Guard</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Post</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Shift</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">In / Out</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ guards }}" as="g" hint-placeholder-count="6">
+                <tr>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ g.name }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ g.post }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ g.shift }}</td>
+                  <td style="font:400 14px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ g.times }}</td>
+                  <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ g.bg }};color:{{ g.fg }}">{{ g.status }}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Shift handover notes</h2>
+            <sc-for list="{{ handover }}" as="h" hint-placeholder-count="3">
+              <div style="padding:14px 0;border-top:1px solid #efece3">
+                <div style="font:400 13px Lato,sans-serif;color:#8a8a80;margin-bottom:5px">{{ h.when }}</div>
+                <div style="font:400 15px/1.5 Lato,sans-serif">{{ h.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Patrol checklist — night round</h2>
+            <sc-for list="{{ patrol }}" as="p" hint-placeholder-count="5">
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+                <span>{{ p.point }}</span>
+                <span style="color:{{ p.tone }};font-size:14px;white-space:nowrap">{{ p.mark }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 8px">Incident register</h2>
+        <sc-for list="{{ incidents }}" as="i" hint-placeholder-count="4">
+          <div style="display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid #efece3">
+            <div style="font:400 15px Lato,sans-serif">{{ i.what }}</div>
+            <div style="display:flex;gap:20px;align-items:baseline;white-space:nowrap">
+              <span style="font:400 14px Lato,sans-serif;color:#8a8a80">{{ i.when }}</span>
+              <span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ i.bg }};color:{{ i.fg }}">{{ i.status }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isStaff }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 8 · Staff Management</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Staff, attendance &amp; salary</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Fourteen on the society payroll — housekeeping, electrician, plumber, gardeners and the manager. Salaries are released on the 5th.</p>
+        </div>
+        <button type="button" onClick="{{ markAttendance }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">Mark Attendance</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ staffKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 30px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0">Staff register</h2>
+          <span style="font:400 13px Lato,sans-serif;color:#8a8a80">August 2026 · 26 working days</span>
+        </div>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Name</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Role</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Duty area</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Present</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Salary</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Payout</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ staffRows }}" as="s" hint-placeholder-count="7">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ s.name }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ s.role }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ s.area }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ s.present }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ s.salary }}</td>
+                <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ s.bg }};color:{{ s.fg }}">{{ s.payout }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isRoster }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 9 · Duty Roster &amp; Follow-up</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Weekly duty roster</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Week of 24–30 Aug 2026. Every duty carries a follow-up owner; anything unverified by 6 pm escalates to the manager.</p>
+        </div>
+        <button type="button" onClick="{{ publishRoster }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">Publish Roster</button>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:30px;overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Duty</th>
+            <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">{{ d }}</th>
+            </sc-for>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ rosterRows }}" as="r" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;white-space:nowrap">{{ r.duty }}</td>
+                <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="7">
+                  <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:7px;padding:6px 11px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ c.bg }};color:{{ c.fg }}">{{ c.who }}</span></td>
+                </sc-for>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Follow-up tracker</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Task</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Owner</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Due</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Verified by</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ followUps }}" as="f" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ f.task }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ f.owner }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ f.due }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ f.verifier }}</td>
+                <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ f.bg }};color:{{ f.fg }}">{{ f.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isVendors }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 10 · Vendor Management</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Vendors &amp; contracts</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Nine empanelled vendors. Contracts, quotations, invoices and renewal dates in one place.</p>
+        </div>
+        <button type="button" onClick="{{ addVendor }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ Add Vendor</button>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:30px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Vendor register</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Vendor</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Service</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Contact</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Contract value</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Renewal</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Payment</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ vendors }}" as="v" hint-placeholder-count="7">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ v.name }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ v.service }}</td>
+                <td style="font:400 14px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ v.phone }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ v.value }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:{{ v.rtone }}">{{ v.renewal }}</td>
+                <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ v.bg }};color:{{ v.fg }}">{{ v.pay }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Open quotations</h2>
+          <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid #efece3">
+              <div>
+                <div style="font:400 15px Lato,sans-serif">{{ q.work }}</div>
+                <div style="font:400 13px Lato,sans-serif;color:#8a8a80;margin-top:3px">{{ q.vendors }}</div>
+              </div>
+              <div style="font:700 15px 'Source Serif 4',Georgia,serif;white-space:nowrap">{{ q.range }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Invoices awaiting payment</h2>
+          <sc-for list="{{ invoices }}" as="i" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid #efece3">
+              <div>
+                <div style="font:400 15px Lato,sans-serif">{{ i.no }}</div>
+                <div style="font:400 13px Lato,sans-serif;color:#8a8a80;margin-top:3px">{{ i.who }}</div>
+              </div>
+              <div style="text-align:right;white-space:nowrap">
+                <div style="font:700 15px 'Source Serif 4',Georgia,serif">{{ i.amount }}</div>
+                <div style="font:400 13px Lato,sans-serif;color:{{ i.tone }};margin-top:3px">{{ i.due }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAssets }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 11 · Asset Management</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Asset register</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Every tagged asset with its location, purchase year, warranty and current condition.</p>
+        </div>
+        <button type="button" onClick="{{ addAsset }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ Add Asset</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ assetKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 30px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Tag</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Asset</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Category</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Location</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Installed</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Warranty / AMC</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Condition</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ assets }}" as="a" hint-placeholder-count="9">
+              <tr>
+                <td style="font:400 14px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ a.tag }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ a.name }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ a.category }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ a.location }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ a.installed }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ a.amc }}</td>
+                <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ a.bg }};color:{{ a.fg }}">{{ a.condition }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPpm }}">
+      <div>
+        <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 12 · Preventive Maintenance</div>
+        <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">AMC &amp; service schedule</h1>
+        <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Reminders fire 15 days before a service is due. Every visit and breakdown is logged against the asset's history.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-top:30px;align-items:start">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px">
+          <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">AMC contracts</h2>
+          <table>
+            <thead><tr>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Equipment</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Vendor</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Frequency</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Next due</th>
+              <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Status</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ amc }}" as="a" hint-placeholder-count="7">
+                <tr>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ a.equip }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ a.vendor }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ a.freq }}</td>
+                  <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ a.next }}</td>
+                  <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;white-space:nowrap;background:{{ a.bg }};color:{{ a.fg }}">{{ a.status }}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Reminders — next 30 days</h2>
+            <sc-for list="{{ reminders }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid #efece3;font:400 15px Lato,sans-serif">
+                <span>{{ r.what }}</span><span style="color:{{ r.tone }};white-space:nowrap;font-size:14px">{{ r.when }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+            <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 14px">Breakdown history — Lift A</h2>
+            <sc-for list="{{ breakdowns }}" as="b" hint-placeholder-count="4">
+              <div style="padding:14px 0;border-top:1px solid #efece3">
+                <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif">
+                  <span>{{ b.what }}</span><span style="color:#8a8a80;font-size:14px;white-space:nowrap">{{ b.when }}</span>
+                </div>
+                <div style="font:400 14px Lato,sans-serif;color:#5f5f57;margin-top:5px">{{ b.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isFacility }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 13 · Facility Booking</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Facility booking</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Residents book slots in the app; charges and refundable deposits post straight to the flat's ledger.</p>
+        </div>
+        <button type="button" onClick="{{ addBooking }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;white-space:nowrap">+ New Booking</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <h2 style="font:700 18px/1 'Source Serif 4',Georgia,serif;margin:0">{{ f.name }}</h2>
+              <span style="display:inline-block;border-radius:999px;padding:4px 12px;font:400 12px Lato,sans-serif;background:{{ f.bg }};color:{{ f.fg }}">{{ f.state }}</span>
+            </div>
+            <div style="font:400 14px Lato,sans-serif;color:#8a8a80;margin:10px 0 14px">{{ f.capacity }}</div>
+            <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif;color:#5f5f57;padding-top:14px;border-top:1px solid #efece3">
+              <span>{{ f.charge }}</span><span>{{ f.next }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Upcoming bookings</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Facility</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flat</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Date</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Slot</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Charge</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Deposit</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Payment</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ bookings }}" as="b" hint-placeholder-count="6">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.facility }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.flat }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.date }}</td>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ b.slot }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.charge }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:#5f5f57">{{ b.deposit }}</td>
+                <td style="padding:14px 14px 14px 0;border-top:1px solid #efece3"><span style="display:inline-block;border-radius:999px;padding:5px 13px;font:400 13px Lato,sans-serif;background:{{ b.bg }};color:{{ b.fg }}">{{ b.pay }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isReports }}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+        <div>
+          <div style="display:inline-block;background:#e3efe8;color:#1e6b52;border-radius:999px;padding:6px 15px;font:400 13px Lato,sans-serif;margin-bottom:14px">Module 14 · Reports &amp; Dashboard</div>
+          <h1 style="font:300 36px/1.15 Lato,sans-serif;margin:0 0 12px">Reports</h1>
+          <p style="font:300 17px/1.5 Lato,sans-serif;color:#5f5f57;margin:0;max-width:700px">Committee pack for August 2026 — collection, dues ageing, expense split, complaints and occupancy.</p>
+        </div>
+        <button type="button" onClick="{{ exportPack }}" style="border:1px solid #e0dccf;background:#fff;cursor:pointer;border-radius:9px;padding:13px 22px;font:700 15px Lato,sans-serif;color:#2a2a28;white-space:nowrap">Export pack (PDF)</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px">
+        <sc-for list="{{ reportKpis }}" as="k" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:22px 24px 20px">
+            <div style="font:400 11px/1 Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a8a80">{{ k.label }}</div>
+            <div style="font:700 30px/1.1 'Source Serif 4',Georgia,serif;margin:14px 0 10px">{{ k.value }}</div>
+            <div style="font:400 13px Lato,sans-serif;color:{{ k.tone }}">{{ k.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px;align-items:start">
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 18px">Outstanding dues — ageing</h2>
+          <sc-for list="{{ ageing }}" as="a" hint-placeholder-count="4">
+            <div style="padding:13px 0;border-top:1px solid #efece3">
+              <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif;margin-bottom:9px">
+                <span>{{ a.bucket }}</span><span style="font:500 15px 'IBM Plex Mono',monospace">{{ a.amount }}</span>
+              </div>
+              <div style="height:7px;border-radius:4px;background:#efece3;overflow:hidden">
+                <div style="height:7px;border-radius:4px;width:{{ a.pct }};background:{{ a.tone }}"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 28px">
+          <h2 style="font:700 20px/1 'Source Serif 4',Georgia,serif;margin:0 0 18px">Expense split — August</h2>
+          <sc-for list="{{ expenseSplit }}" as="e" hint-placeholder-count="6">
+            <div style="padding:13px 0;border-top:1px solid #efece3">
+              <div style="display:flex;justify-content:space-between;font:400 15px Lato,sans-serif;margin-bottom:9px">
+                <span>{{ e.head }}</span><span style="font:500 15px 'IBM Plex Mono',monospace">{{ e.amount }}</span>
+              </div>
+              <div style="height:7px;border-radius:4px;background:#efece3;overflow:hidden">
+                <div style="height:7px;border-radius:4px;width:{{ e.pct }};background:#1e6b52"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e4d9;border-radius:12px;padding:26px 30px;margin-top:22px">
+        <h2 style="font:700 21px/1 'Source Serif 4',Georgia,serif;margin:0 0 20px">Block-wise summary</h2>
+        <table>
+          <thead><tr>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Block</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Flats</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Occupied</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Billed</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Collected</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Collection %</th>
+            <th style="text-align:left;font:400 11px Lato,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8a8a80;padding:0 14px 14px 0">Open complaints</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ blockSummary }}" as="b" hint-placeholder-count="5">
+              <tr>
+                <td style="font:400 15px Lato,sans-serif;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.block }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.flats }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.occupied }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.billed }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.collected }}</td>
+                <td style="font:500 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3;color:{{ b.tone }}">{{ b.pct }}</td>
+                <td style="font:400 15px 'IBM Plex Mono',monospace;padding:14px 14px 14px 0;border-top:1px solid #efece3">{{ b.complaints }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <sc-if value="{{ modalOpen }}">
+    <div style="position:fixed;inset:0;background:rgba(22,38,45,.42);display:flex;align-items:center;justify-content:center;padding:40px;z-index:50">
+      <div style="background:#fff;border-radius:14px;width:100%;max-width:640px;max-height:86vh;overflow-y:auto;box-shadow:0 24px 60px rgba(22,38,45,.24)">
+        <div style="padding:26px 30px 20px;border-bottom:1px solid #efece3">
+          <div style="font:400 12px Lato,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8a8a80;margin-bottom:8px">{{ modalKicker }}</div>
+          <h2 style="font:700 24px/1 'Source Serif 4',Georgia,serif;margin:0">{{ modalTitle }}</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:26px 30px">
+          <sc-for list="{{ modalFields }}" as="f" hint-placeholder-count="6">
+            <label style="display:flex;flex-direction:column;gap:7px">
+              <span style="font:400 13px Lato,sans-serif;color:#5f5f57">{{ f.label }}</span>
+              <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ true }}">
+                <input type="text" value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.placeholder }}" style="border:1px solid #e0dccf;background:#fdfcf8;border-radius:8px;padding:11px 14px;font:400 15px Lato,sans-serif;color:#2a2a28;width:100%" />
+              </sc-if>
+              <sc-if value="{{ f.isSelect }}">
+                <select value="{{ f.value }}" onChange="{{ f.onChange }}" style="border:1px solid #e0dccf;background:#fdfcf8;border-radius:8px;padding:11px 12px;font:400 15px Lato,sans-serif;color:#2a2a28;width:100%">
+                  <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                    <option value="{{ o }}">{{ o }}</option>
+                  </sc-for>
+                </select>
+              </sc-if>
+            </label>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:12px;padding:0 30px 26px">
+          <button type="button" onClick="{{ closeModal }}" style="border:1px solid #e0dccf;background:#fff;cursor:pointer;border-radius:9px;padding:12px 20px;font:700 15px Lato,sans-serif;color:#2a2a28">Cancel</button>
+          <button type="button" onClick="{{ submitModal }}" style="border:0;cursor:pointer;background:#1e6b52;color:#fff;border-radius:9px;padding:12px 22px;font:700 15px Lato,sans-serif">{{ modalSubmit }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}">
+    <div style="position:fixed;left:300px;bottom:28px;z-index:60;display:flex;align-items:center;gap:11px;background:#16262d;color:#f2efe7;border-radius:10px;padding:14px 20px;font:400 15px Lato,sans-serif;box-shadow:0 12px 30px rgba(22,38,45,.28)">
+      <span style="width:8px;height:8px;border-radius:50%;background:#4fbf95"></span>{{ toast }}
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;societyName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Greenfield Residency&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;penaltyPerDay&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:5,&quot;unit&quot;:&quot;₹/day&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Billing rules&quot;},&quot;billingFrequency&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Quarterly, in advance&quot;,&quot;options&quot;:[&quot;Quarterly, in advance&quot;,&quot;Monthly&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Billing rules&quot;}}">
+const T = {
+  green: ['#e3efe8', '#1e6b52'],
+  rust: ['#fbe6d8', '#b0491a'],
+  amber: ['#fbeed0', '#8a6414'],
+  purple: ['#ece8f7', '#5b4b96'],
+  grey: ['#eceae2', '#6f6f68'],
+};
+const tag = (label, tone) => ({ label, bg: T[tone][0], fg: T[tone][1] });
+
+const MODALS = {
+  flat: {
+    title: 'Add flat', kicker: 'Module 1 · Property Master', submit: 'Save flat',
+    fields: [
+      { key: 'flat', label: 'Flat no.', placeholder: 'A-2C' },
+      { key: 'type', label: 'Flat type', options: ['1BHK', '2BHK', '3BHK', '4BHK'] },
+      { key: 'carpet', label: 'Carpet area', placeholder: '980 sq.ft' },
+      { key: 'uds', label: 'UDS', placeholder: '330 sq.ft' },
+      { key: 'parking', label: 'Parking slots', options: ['0', '1', '2'] },
+      { key: 'status', label: 'Status', options: ['Owner-occupied', 'Tenant', 'Vacant'] },
+    ],
+  },
+  resident: {
+    title: 'Add resident', kicker: 'Module 2 · Owners & Residents', submit: 'Save resident',
+    fields: [
+      { key: 'name', label: 'Full name', placeholder: 'Ramesh Kumar' },
+      { key: 'flat', label: 'Flat no.', placeholder: 'A-2C' },
+      { key: 'type', label: 'Resident type', options: ['Owner', 'Tenant'] },
+      { key: 'family', label: 'Family members', placeholder: '3 members' },
+      { key: 'phone', label: 'Contact number', placeholder: '98430 XXXXX' },
+      { key: 'emergency', label: 'Emergency contact', placeholder: 'Name — number' },
+      { key: 'since', label: 'Resident since', placeholder: 'Aug 2026' },
+    ],
+  },
+  ticket: {
+    title: 'New complaint', kicker: 'Module 6 · Helpdesk', submit: 'Raise ticket',
+    fields: [
+      { key: 'flat', label: 'Flat / location', placeholder: 'C-2A' },
+      { key: 'category', label: 'Category', options: ['Plumbing', 'Electrical', 'Lift', 'Housekeeping', 'Security', 'Carpentry', 'Facility'] },
+      { key: 'text', label: 'Complaint', placeholder: 'Describe the issue' },
+      { key: 'priority', label: 'Priority', options: ['High', 'Medium', 'Low'] },
+      { key: 'owner', label: 'Assign to', placeholder: 'Suresh (electrician)' },
+    ],
+  },
+  vendor: {
+    title: 'Add vendor', kicker: 'Module 10 · Vendor Management', submit: 'Save vendor',
+    fields: [
+      { key: 'name', label: 'Vendor name', placeholder: 'AquaPure' },
+      { key: 'service', label: 'Service', placeholder: 'Water tank cleaning' },
+      { key: 'phone', label: 'Contact', placeholder: '93450 XXXXX' },
+      { key: 'value', label: 'Contract value', placeholder: '₹1,08,000/yr' },
+      { key: 'renewal', label: 'Renewal date', placeholder: '30 Jun 2027' },
+      { key: 'pay', label: 'Payment state', options: ['Clear', 'Due'] },
+    ],
+  },
+  asset: {
+    title: 'Add asset', kicker: 'Module 11 · Asset Management', submit: 'Save asset',
+    fields: [
+      { key: 'tag', label: 'Asset tag', placeholder: 'PMP-04' },
+      { key: 'name', label: 'Asset name', placeholder: 'Booster pump — Block E' },
+      { key: 'category', label: 'Category', options: ['Lifts', 'Power backup', 'Pumps', 'Electrical', 'CCTV', 'Fire safety', 'Gym equipment', 'Furniture'] },
+      { key: 'location', label: 'Location', placeholder: 'Pump room' },
+      { key: 'installed', label: 'Installed year', placeholder: '2026' },
+      { key: 'amc', label: 'Warranty / AMC', placeholder: 'AMC to 31 Mar 2027' },
+      { key: 'condition', label: 'Condition', options: ['Good', 'Monitor', 'Under repair', 'Out of service'] },
+    ],
+  },
+  booking: {
+    title: 'New booking', kicker: 'Module 13 · Facility Booking', submit: 'Confirm booking',
+    fields: [
+      { key: 'facility', label: 'Facility', options: ['Community hall', 'Party area', 'Gym', 'Swimming pool', 'Sports room', 'Guest suite'] },
+      { key: 'flat', label: 'Flat no.', placeholder: 'B-2B' },
+      { key: 'date', label: 'Date', placeholder: '12 Sep' },
+      { key: 'slot', label: 'Slot', placeholder: '6–10 pm' },
+      { key: 'charge', label: 'Charge', placeholder: '₹3,000' },
+      { key: 'deposit', label: 'Refundable deposit', placeholder: '₹5,000' },
+      { key: 'pay', label: 'Payment', options: ['Paid', 'Pending', 'Awaiting approval'] },
+    ],
+  },
+};
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home', modal: null, form: {}, toast: null,
+    added: { flats: [], residents: [], tickets: [], vendors: [], assets: [], bookings: [] },
+  };
+
+  go(id) { this.setState({ screen: id }); window.scrollTo(0, 0); }
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 3200);
+  }
+
+  openModal(kind) {
+    const form = {};
+    MODALS[kind].fields.forEach(f => { form[f.key] = f.options ? f.options[0] : ''; });
+    this.setState({ modal: kind, form });
+  }
+
+  closeModal() { this.setState({ modal: null, form: {} }); }
+
+  submitModal() {
+    const kind = this.state.modal;
+    const f = this.state.form;
+    const add = { ...this.state.added };
+    const dash = v => (v && String(v).trim()) ? v : '—';
+    if (kind === 'flat') {
+      const t = f.status === 'Vacant' ? 'grey' : f.status === 'Tenant' ? 'purple' : 'green';
+      add.flats = [{ flat: dash(f.flat), type: f.type, carpet: dash(f.carpet), uds: dash(f.uds), parking: f.parking, status: f.status, bg: T[t][0], fg: T[t][1] }, ...add.flats];
+      this.flash('Flat ' + dash(f.flat) + ' added to the register.');
+    } else if (kind === 'resident') {
+      const t = f.type === 'Tenant' ? 'purple' : 'green';
+      add.residents = [{ name: dash(f.name), flat: dash(f.flat), type: f.type, family: dash(f.family), phone: dash(f.phone), emergency: dash(f.emergency), since: dash(f.since), bg: T[t][0], fg: T[t][1] }, ...add.residents];
+      this.flash(dash(f.name) + ' added to the residents directory.');
+    } else if (kind === 'ticket') {
+      const p = f.priority === 'High' ? 'rust' : f.priority === 'Medium' ? 'amber' : 'grey';
+      const id = 'HD-' + (2042 + add.tickets.length);
+      add.tickets = [{ id, flat: dash(f.flat), category: f.category, text: dash(f.text), priority: f.priority, owner: dash(f.owner), photos: '—', status: 'Assigned', pbg: T[p][0], pfg: T[p][1], sbg: T.purple[0], sfg: T.purple[1] }, ...add.tickets];
+      this.flash(id + ' raised and assigned.');
+    } else if (kind === 'vendor') {
+      const t = f.pay === 'Clear' ? 'green' : 'amber';
+      add.vendors = [{ name: dash(f.name), service: dash(f.service), phone: dash(f.phone), value: dash(f.value), renewal: dash(f.renewal), rtone: '#5f5f57', pay: f.pay, bg: T[t][0], fg: T[t][1] }, ...add.vendors];
+      this.flash(dash(f.name) + ' empanelled.');
+    } else if (kind === 'asset') {
+      const t = f.condition === 'Good' ? 'green' : f.condition === 'Monitor' ? 'amber' : 'rust';
+      add.assets = [{ tag: dash(f.tag), name: dash(f.name), category: f.category, location: dash(f.location), installed: dash(f.installed), amc: dash(f.amc), condition: f.condition, bg: T[t][0], fg: T[t][1] }, ...add.assets];
+      this.flash('Asset ' + dash(f.tag) + ' tagged.');
+    } else if (kind === 'booking') {
+      const t = f.pay === 'Paid' ? 'green' : f.pay === 'Pending' ? 'amber' : 'purple';
+      add.bookings = [{ facility: f.facility, flat: dash(f.flat), date: dash(f.date), slot: dash(f.slot), charge: dash(f.charge), deposit: dash(f.deposit), pay: f.pay, bg: T[t][0], fg: T[t][1] }, ...add.bookings];
+      this.flash(f.facility + ' booked for ' + dash(f.flat) + ' on ' + dash(f.date) + '.');
+    }
+    this.setState({ added: add, modal: null, form: {} });
+  }
+
+  buildBlocks() {
+    const defs = [
+      { name: 'Block A', units: 6, pending: ['2F', '4A'], vacant: ['2E'] },
+      { name: 'Block B', units: 4, pending: ['2D'], vacant: ['2B'] },
+      { name: 'Block C', units: 4, pending: ['4A', '1B'], vacant: ['2B', '2D'] },
+      { name: 'Block D', units: 6, pending: ['4A', '4C', '2D', '1C'], vacant: ['3F'] },
+      { name: 'Block E', units: 6, pending: ['3D', '2A', '2C', '1C'], vacant: [] },
+    ];
+    const letters = 'ABCDEF';
+    return defs.map(d => ({
+      name: d.name,
+      count: d.units * 4,
+      floors: [4, 3, 2, 1].map(n => ({
+        n,
+        flats: Array.from({ length: d.units }, (_, i) => {
+          const id = n + letters[i];
+          const st = d.vacant.includes(id) ? 'vacant' : d.pending.includes(id) ? 'pending' : 'ok';
+          return {
+            id,
+            bg: st === 'vacant' ? '#ddd8cb' : st === 'pending' ? '#c2571f' : '#1e6b52',
+            fg: st === 'vacant' ? '#6f6f68' : '#fff',
+          };
+        }),
+      })),
+    }));
+  }
+
+  renderVals() {
+    const s = this.state.screen;
+    const penalty = this.props.penaltyPerDay ?? 15;
+    const quarterly = (this.props.billingFrequency ?? 'Quarterly, in advance') !== 'Monthly';
+    const nav = [
+      { title: 'Overview', items: [['home', '🏠', 'Home'], ['reports', '📊', 'Reports & Dashboard']] },
+      { title: 'Property & people', items: [['blocks', '🏢', 'Blocks & Flats'], ['residents', '👥', 'Residents'], ['access', '🔐', 'Users & Access']] },
+      { title: 'Billing & finance', items: [['bills', '💰', 'Maintenance Bills'], ['accounts', '📒', 'Accounting & Finance'], ['vendors', '🤝', 'Vendors']] },
+      { title: 'Operations', items: [['helpdesk', '🛠️', 'Helpdesk'], ['security', '🛡️', 'Security'], ['staff', '🧹', 'Staff'], ['roster', '🗓️', 'Duty Roster'], ['assets', '⚙️', 'Assets'], ['ppm', '🔧', 'Preventive Maintenance'], ['facility', '🎉', 'Facility Booking']] },
+    ].map(g => ({
+      title: g.title,
+      items: g.items.map(([id, icon, label]) => ({
+        id, icon, label,
+        bg: s === id ? '#1e6b52' : 'transparent',
+        fg: s === id ? '#ffffff' : '#c6d2d7',
+        go: () => this.go(id),
+      })),
+    }));
+
+    const pen42 = 42 * penalty;
+    const inr = n => '₹' + n.toLocaleString('en-IN');
+    const A = this.state.added;
+    const m = this.state.modal;
+    const cfg = m ? MODALS[m] : null;
+
+    return {
+      toast: this.state.toast,
+      toastOpen: !!this.state.toast,
+      modalOpen: !!m,
+      modalTitle: cfg ? cfg.title : '',
+      modalKicker: cfg ? cfg.kicker : '',
+      modalSubmit: cfg ? cfg.submit : '',
+      closeModal: () => this.closeModal(),
+      submitModal: () => this.submitModal(),
+      modalFields: cfg ? cfg.fields.map(f => ({
+        key: f.key, label: f.label, placeholder: f.placeholder || '',
+        value: this.state.form[f.key] ?? '',
+        options: f.options || [],
+        isSelect: !!f.options, isText: !f.options,
+        onChange: e => this.setState({ form: { ...this.state.form, [f.key]: e.target.value } }),
+      })) : [],
+      addFlat: () => this.openModal('flat'),
+      addResident: () => this.openModal('resident'),
+      addTicket: () => this.openModal('ticket'),
+      addVendor: () => this.openModal('vendor'),
+      addAsset: () => this.openModal('asset'),
+      addBooking: () => this.openModal('booking'),
+      generateBills: () => this.flash(quarterly ? 'Q3 (Jul–Sep) bills generated for 104 flats — ₹28,75,200.' : 'August bills generated for 104 flats — ₹9,58,400.'),
+      markAttendance: () => this.flash('Attendance saved for 27 Aug — 12 present, 1 leave, 1 absent.'),
+      publishRoster: () => this.flash('Roster published for 24–30 Aug — 14 staff notified.'),
+      exportPack: () => this.flash('Committee pack for Aug 2026 queued for export.'),
+      downloadReceipt: () => this.flash('Receipt MR/2026/Q3/0101 downloaded.'),
+      societyName: this.props.societyName ?? 'Greenfield Residency',
+      nav,
+      isHome: s === 'home', isBlocks: s === 'blocks', isResidents: s === 'residents',
+      isAccess: s === 'access', isBills: s === 'bills', isAccounts: s === 'accounts',
+      isHelpdesk: s === 'helpdesk', isSecurity: s === 'security', isStaff: s === 'staff',
+      isRoster: s === 'roster', isVendors: s === 'vendors', isAssets: s === 'assets',
+      isPpm: s === 'ppm', isFacility: s === 'facility', isReports: s === 'reports',
+
+      homeKpis: [
+        { label: 'Money collected', value: '₹8,42,000', note: '↑ 6% vs last month', tone: '#1e6b52' },
+        { label: 'Money still due', value: '₹1,16,400', note: "14 flats haven't paid yet", tone: '#b0491a' },
+        { label: 'Money spent', value: '₹5,10,200', note: 'Housekeeping, DG fuel, lift AMC', tone: '#8a8a80' },
+        { label: 'Flats occupied', value: '96 / 104', note: '8 flats are empty', tone: '#8a8a80' },
+      ],
+      attention: [
+        { text: 'C-3D — 42 days overdue', amount: inr(12600 + 4600 + pen42), tone: '#b0491a' },
+        { text: 'A-1B — Q3 bill still pending', amount: '₹11,800', tone: '#b0491a' },
+        { text: 'Lift AMC renewal due 5 Sep', amount: '—', tone: '#8a8a80' },
+        { text: 'Bank recon pending — HDFC A/C', amount: '—', tone: '#8a8a80' },
+        { text: 'D-4C — move-out this week', amount: '—', tone: '#8a8a80' },
+      ],
+      homeComplaints: [
+        { text: 'HD-2041 — Lift B stuck on 3rd', tag: 'High', tone: '#b0491a' },
+        { text: 'HD-2039 — Water leak, C-2A ceiling', tag: 'High', tone: '#b0491a' },
+        { text: 'HD-2036 — Corridor light out, D-3', tag: 'Low', tone: '#8a8a80' },
+        { text: 'HD-2033 — Gym treadmill noise', tag: 'Medium', tone: '#8a6414' },
+      ],
+      homeStaff: [
+        { text: 'Housekeeping', meta: '6 of 6 present' },
+        { text: 'Security guards', meta: '7 of 8 present' },
+        { text: 'Plumber (on call)', meta: 'Arriving 3 pm' },
+        { text: 'Gardener', meta: 'On leave' },
+      ],
+      homeEvents: [
+        { text: 'Community hall — birthday party', meta: '6–10 pm' },
+        { text: 'DG diesel top-up', meta: '11 am' },
+        { text: 'EC meeting — Q3 accounts', meta: '7:30 pm' },
+        { text: 'Pest control, Block E', meta: '2 pm' },
+      ],
+
+      blocks: this.buildBlocks(),
+      flatRegister: [...A.flats,
+        { flat: 'A-1A', type: '3BHK', carpet: '1,240 sq.ft', uds: '420 sq.ft', parking: 2, status: 'Owner-occupied', bg: T.green[0], fg: T.green[1] },
+        { flat: 'A-1B', type: '2BHK', carpet: '980 sq.ft', uds: '330 sq.ft', parking: 1, status: 'Tenant', bg: T.purple[0], fg: T.purple[1] },
+        { flat: 'A-1C', type: '3BHK', carpet: '1,240 sq.ft', uds: '420 sq.ft', parking: 2, status: 'Vacant', bg: T.grey[0], fg: T.grey[1] },
+        { flat: 'A-1D', type: '2BHK', carpet: '980 sq.ft', uds: '330 sq.ft', parking: 1, status: 'Owner-occupied', bg: T.green[0], fg: T.green[1] },
+        { flat: 'A-1E', type: '2BHK', carpet: '980 sq.ft', uds: '330 sq.ft', parking: 1, status: 'Tenant', bg: T.purple[0], fg: T.purple[1] },
+        { flat: 'A-1F', type: '1BHK', carpet: '620 sq.ft', uds: '210 sq.ft', parking: 1, status: 'Owner-occupied', bg: T.green[0], fg: T.green[1] },
+      ],
+
+      residents: [...A.residents,
+        { name: 'Ramesh Kumar', flat: 'A-1A', type: 'Owner', family: '4 members', phone: '98430 XXXXX', emergency: 'Lakshmi K. — 90031 XXXXX', since: 'Mar 2019', bg: T.green[0], fg: T.green[1] },
+        { name: 'Sneha Iyer', flat: 'A-1B', type: 'Tenant', family: '2 members', phone: '96297 XXXXX', emergency: 'Arjun Iyer — 96297 XXXXX', since: 'Jan 2026', bg: T.purple[0], fg: T.purple[1] },
+        { name: 'Vinod Menon', flat: 'B-2B', type: 'Owner', family: '3 members', phone: '90802 XXXXX', emergency: 'Priya Menon — 90802 XXXXX', since: 'Jul 2020', bg: T.green[0], fg: T.green[1] },
+        { name: 'Farida Sheikh', flat: 'C-3D', type: 'Tenant', family: '3 members', phone: '97511 XXXXX', emergency: '—', since: 'Feb 2025', bg: T.purple[0], fg: T.purple[1] },
+        { name: 'Anil Deshmukh', flat: 'D-4C', type: 'Owner', family: '5 members', phone: '99401 XXXXX', emergency: 'Sunita D. — 99401 XXXXX', since: 'Nov 2018', bg: T.green[0], fg: T.green[1] },
+        { name: 'Kavya Raghavan', flat: 'E-1C', type: 'Tenant', family: '1 member', phone: '93810 XXXXX', emergency: 'R. Raghavan — 93810 XXXXX', since: 'Aug 2026', bg: T.purple[0], fg: T.purple[1] },
+      ],
+      moveLog: [
+        { text: 'D-4C — move-out scheduled', date: '2 Sep 2026' },
+        { text: 'E-1C — new tenant moved in', date: '14 Aug 2026' },
+        { text: 'C-3D — new tenant moved in', date: '14 Feb 2025' },
+        { text: 'A-1B — tenant renewed lease', date: '1 Jan 2026' },
+      ],
+
+      roleCards: [
+        { role: 'Admin', count: '2 logins', scope: 'Everything, including masters and audit trail' },
+        { role: 'EC member', count: '7 logins', scope: 'Read all, approve vouchers above ₹25,000' },
+        { role: 'Manager', count: '1 login', scope: 'Day-to-day operations, billing, staff, vendors' },
+        { role: 'Security', count: '9 logins', scope: 'Gate register, visitors, incidents only' },
+      ],
+      permRoles: ['Admin', 'EC', 'Manager', 'Accountant', 'Security', 'Resident', 'Vendor'],
+      permRows: [
+        { module: 'Property master', marks: ['●', '◐', '●', '—', '—', '—', '—'] },
+        { module: 'Residents', marks: ['●', '◐', '●', '—', '◐', '◐', '—'] },
+        { module: 'Maintenance billing', marks: ['●', '◐', '●', '●', '—', '◐', '—'] },
+        { module: 'Accounting & finance', marks: ['●', '◐', '◐', '●', '—', '—', '—'] },
+        { module: 'Helpdesk', marks: ['●', '◐', '●', '—', '◐', '●', '◐'] },
+        { module: 'Security & incidents', marks: ['●', '◐', '●', '—', '●', '—', '—'] },
+        { module: 'Staff & roster', marks: ['●', '◐', '●', '—', '◐', '—', '—'] },
+        { module: 'Vendors & AMC', marks: ['●', '◐', '●', '◐', '—', '—', '◐'] },
+        { module: 'Facility booking', marks: ['●', '◐', '●', '—', '◐', '●', '—'] },
+        { module: 'Reports', marks: ['●', '●', '●', '●', '—', '◐', '—'] },
+      ].map(r => ({
+        module: r.module,
+        cells: r.marks.map(m => ({ mark: m, fg: m === '●' ? '#1e6b52' : m === '◐' ? '#8a6414' : '#c4c0b4' })),
+      })),
+
+      penalty,
+      billTitle: quarterly ? 'Quarterly maintenance & dues' : 'Monthly maintenance & dues',
+      billIntro: quarterly
+        ? 'Billed in advance for the quarter, on the 1st month: Jan bill covers Jan–Mar, Apr covers Apr–Jun, Jul covers Jul–Sep, Oct covers Oct–Dec. Due by the 15th of the billing month; penalty accrues per day after that.'
+        : 'Billed in advance on the 1st of every month and due by the 15th; penalty accrues per day after that.',
+      billCta: quarterly ? 'Generate Q3 (Jul–Sep) Bills' : 'Generate August Bills',
+      freqLabel: quarterly ? 'Quarterly, in advance' : 'Monthly, in advance',
+      raisedOn: quarterly ? '1st of Jan / Apr / Jul / Oct' : '1st of every month',
+      billRegisterTitle: quarterly ? 'Bill register — Q3 2026 (Jul–Sep, raised 1 Jul, due 15 Jul)' : 'Bill register — August 2026 (raised 1 Aug, due 15 Aug)',
+      maintColLabel: quarterly ? 'Quarter maintenance' : 'Month maintenance',
+      receiptLine: quarterly ? 'Quarterly maintenance (Jul–Sep 2026) ................ ₹12,600' : 'Monthly maintenance (Aug 2026) ................ ₹4,200',
+      billKpis: [
+        { label: quarterly ? 'Billed this quarter' : 'Billed this month', value: quarterly ? '₹28,75,200' : '₹9,58,400' },
+        { label: 'Collected so far', value: quarterly ? '₹25,26,000' : '₹8,42,000' },
+        { label: 'Still pending', value: quarterly ? '₹3,49,200' : '₹1,16,400' },
+      ],
+      bills: [
+        { flat: 'A-1A', resident: 'Ramesh Kumar', maint: '₹12,600', special: '—', prev: '—', penalty: '—', total: '₹12,600', status: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { flat: 'A-1B', resident: 'Sneha Iyer', maint: '₹10,800', special: '₹1,000', prev: '—', penalty: '—', total: '₹11,800', status: 'Pending', bg: T.amber[0], fg: T.amber[1] },
+        { flat: 'B-2B', resident: 'Vinod Menon', maint: '₹12,600', special: '—', prev: '—', penalty: '—', total: '₹12,600', status: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { flat: 'C-3D', resident: 'Farida Sheikh', maint: '₹12,600', special: '—', prev: '₹4,600', penalty: inr(pen42), total: inr(12600 + 4600 + pen42), status: 'Overdue — 42 days', bg: T.rust[0], fg: T.rust[1] },
+        { flat: 'D-4C', resident: 'Anil Deshmukh', maint: '₹14,400', special: '₹2,500', prev: '—', penalty: '—', total: '₹16,900', status: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { flat: 'E-1C', resident: 'Kavya Raghavan', maint: '₹8,400', special: '—', prev: '—', penalty: '—', total: '₹8,400', status: 'Part paid — ₹4,000', bg: T.amber[0], fg: T.amber[1] },
+      ],
+
+      finKpis: [
+        { label: 'Income YTD', value: '₹41,20,000', note: 'Maintenance + interest + hall rent', tone: '#8a8a80' },
+        { label: 'Expenses YTD', value: '₹33,86,400', note: '82% of budget consumed', tone: '#8a8a80' },
+        { label: 'Corpus fund', value: '₹62,40,000', note: 'Fixed deposit, matures Mar 2027', tone: '#1e6b52' },
+        { label: 'Cash + bank', value: '₹7,84,900', note: 'Across 3 accounts', tone: '#8a8a80' },
+      ],
+      vouchers: [
+        { no: 'PV/26-27/218', head: 'Lift AMC', party: 'Skyline Elevators', amount: '₹48,000', state: 'Approved', bg: T.green[0], fg: T.green[1] },
+        { no: 'PV/26-27/219', head: 'DG diesel', party: 'Sri Fuels', amount: '₹36,500', state: 'Approved', bg: T.green[0], fg: T.green[1] },
+        { no: 'PV/26-27/220', head: 'Housekeeping salary', party: 'Payroll', amount: '₹1,42,000', state: 'Approved', bg: T.green[0], fg: T.green[1] },
+        { no: 'PV/26-27/221', head: 'Plumbing repair, C-block', party: 'Ravi Plumbing', amount: '₹18,700', state: 'EC approval', bg: T.amber[0], fg: T.amber[1] },
+        { no: 'PV/26-27/222', head: 'CCTV upgrade (advance)', party: 'SecureVision', amount: '₹75,000', state: 'EC approval', bg: T.amber[0], fg: T.amber[1] },
+        { no: 'PV/26-27/223', head: 'Garden saplings', party: 'Green Nursery', amount: '₹6,200', state: 'Draft', bg: T.grey[0], fg: T.grey[1] },
+      ],
+      banks: [
+        { name: 'HDFC — current A/C', meta: '••4821 · operating account', balance: '₹5,12,400' },
+        { name: 'SBI — sinking fund', meta: '••7730 · restricted', balance: '₹2,48,000' },
+        { name: 'Petty cash', meta: 'Manager custody', balance: '₹24,500' },
+      ],
+      budget: [
+        { head: 'Housekeeping', figures: '₹14.2L of ₹17.0L', pct: '84%', tone: '#1e6b52' },
+        { head: 'Electricity & DG', figures: '₹9.8L of ₹11.0L', pct: '89%', tone: '#1e6b52' },
+        { head: 'Lift & pumps AMC', figures: '₹3.9L of ₹4.2L', pct: '93%', tone: '#c2571f' },
+        { head: 'Security', figures: '₹4.1L of ₹6.4L', pct: '64%', tone: '#1e6b52' },
+        { head: 'Repairs & civil', figures: '₹1.9L of ₹2.0L', pct: '95%', tone: '#c2571f' },
+      ],
+      statements: [
+        { name: 'Income & expenditure — Aug 2026', action: 'View' },
+        { name: 'Balance sheet — FY 2025–26', action: 'View' },
+        { name: 'Receipts & payments — Q1', action: 'View' },
+        { name: 'Auditor report — FY 2025–26', action: 'Signed 12 Jun' },
+      ],
+
+      helpKpis: [
+        { label: 'Open tickets', value: '14', note: '4 high priority', tone: '#b0491a' },
+        { label: 'Closed this month', value: '38', note: '↑ 9 vs July', tone: '#1e6b52' },
+        { label: 'Avg resolution', value: '19 hrs', note: 'Target: 24 hrs', tone: '#1e6b52' },
+        { label: 'Resident rating', value: '4.3 / 5', note: 'From 31 responses', tone: '#8a8a80' },
+      ],
+      tickets: [...A.tickets,
+        { id: 'HD-2041', flat: 'B-3A', category: 'Lift', text: 'Lift B stopped between 3rd and 4th', priority: 'High', owner: 'Skyline Elevators', photos: '2 photos', status: 'In progress', pbg: T.rust[0], pfg: T.rust[1], sbg: T.amber[0], sfg: T.amber[1] },
+        { id: 'HD-2039', flat: 'C-2A', category: 'Plumbing', text: 'Water seepage on bedroom ceiling', priority: 'High', owner: 'Ravi (plumber)', photos: '3 photos', status: 'In progress', pbg: T.rust[0], pfg: T.rust[1], sbg: T.amber[0], sfg: T.amber[1] },
+        { id: 'HD-2038', flat: 'A-4D', category: 'Electrical', text: 'Frequent MCB trip in kitchen line', priority: 'Medium', owner: 'Suresh (electrician)', photos: '1 photo', status: 'Assigned', pbg: T.amber[0], pfg: T.amber[1], sbg: T.purple[0], sfg: T.purple[1] },
+        { id: 'HD-2036', flat: 'D-3 corridor', category: 'Housekeeping', text: 'Corridor light not working', priority: 'Low', owner: 'Suresh (electrician)', photos: '—', status: 'Assigned', pbg: T.grey[0], pfg: T.grey[1], sbg: T.purple[0], sfg: T.purple[1] },
+        { id: 'HD-2033', flat: 'Gym', category: 'Facility', text: 'Treadmill making grinding noise', priority: 'Medium', owner: 'FitCare Services', photos: '1 photo', status: 'Awaiting vendor', pbg: T.amber[0], pfg: T.amber[1], sbg: T.amber[0], sfg: T.amber[1] },
+        { id: 'HD-2030', flat: 'E-2C', category: 'Carpentry', text: 'Main door lock jammed', priority: 'Low', owner: 'Manager', photos: '—', status: 'Resolved', pbg: T.grey[0], pfg: T.grey[1], sbg: T.green[0], sfg: T.green[1] },
+        { id: 'HD-2027', flat: 'Basement', category: 'Security', text: 'CCTV camera 7 offline', priority: 'High', owner: 'SecureVision', photos: '1 photo', status: 'Resolved', pbg: T.rust[0], pfg: T.rust[1], sbg: T.green[0], sfg: T.green[1] },
+      ],
+      trail: [
+        { when: '26 Aug, 08:12', what: 'Raised by resident (B-3A) with 2 photos' },
+        { when: '26 Aug, 08:40', what: 'Assigned to Skyline Elevators by manager' },
+        { when: '26 Aug, 11:05', what: 'Technician on site — controller card fault' },
+        { when: '27 Aug, 09:30', what: 'Spare ordered; temporary lock-out in place' },
+      ],
+      feedback: [
+        { who: 'A-2C — plumbing', stars: '★★★★★', note: 'Fixed the same evening, no follow-up needed.' },
+        { who: 'E-2C — carpentry', stars: '★★★★☆', note: 'Good work, took a day longer than promised.' },
+        { who: 'Basement — CCTV', stars: '★★★★☆', note: 'Camera back online; wiring still untidy.' },
+        { who: 'D-1B — housekeeping', stars: '★★★☆☆', note: 'Staircase cleaning missed twice last week.' },
+      ],
+
+      shifts: [
+        { name: 'Morning', hours: '06:00 – 14:00', staff: 'Ganesh P. (main gate) · Iqbal S. (basement) · Ramu K. (rounds)', state: 'Completed', bg: T.grey[0], fg: T.grey[1] },
+        { name: 'Evening', hours: '14:00 – 22:00', staff: 'Mahesh R. (main gate) · Dinesh V. (clubhouse) · Ravi T. (rounds)', state: 'On duty', bg: T.green[0], fg: T.green[1] },
+        { name: 'Night', hours: '22:00 – 06:00', staff: 'Karthik B. (main gate) · Selvam A. (rounds)', state: 'Next', bg: T.purple[0], fg: T.purple[1] },
+      ],
+      guards: [
+        { name: 'Ganesh P.', post: 'Main gate', shift: 'Morning', times: '05:52 / 14:04', status: 'Present', bg: T.green[0], fg: T.green[1] },
+        { name: 'Iqbal S.', post: 'Basement', shift: 'Morning', times: '06:05 / 14:02', status: 'Late by 5m', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'Ramu K.', post: 'Patrol', shift: 'Morning', times: '05:58 / 14:00', status: 'Present', bg: T.green[0], fg: T.green[1] },
+        { name: 'Mahesh R.', post: 'Main gate', shift: 'Evening', times: '13:50 / —', status: 'On duty', bg: T.green[0], fg: T.green[1] },
+        { name: 'Dinesh V.', post: 'Clubhouse', shift: 'Evening', times: '13:56 / —', status: 'On duty', bg: T.green[0], fg: T.green[1] },
+        { name: 'Suman L.', post: 'Patrol', shift: 'Evening', times: '— / —', status: 'Absent', bg: T.rust[0], fg: T.rust[1] },
+        { name: 'Karthik B.', post: 'Main gate', shift: 'Night', times: '— / —', status: 'Rostered', bg: T.purple[0], fg: T.purple[1] },
+      ],
+      handover: [
+        { when: 'Morning → Evening, 14:00', note: 'Lift B locked out on 3rd floor; vendor spare expected tomorrow. Visitor pass book at 41 entries.' },
+        { when: 'Night → Morning, 06:00', note: 'Two-wheeler without sticker parked in visitor bay — sticker issued at 07:20.' },
+        { when: 'Evening → Night, 22:00 (26 Aug)', note: 'Basement gate motor slow to close; PPM ticket raised.' },
+      ],
+      patrol: [
+        { point: 'Terrace doors — all blocks', mark: 'Locked · 23:10', tone: '#1e6b52' },
+        { point: 'Basement — fire exit clear', mark: 'Clear · 23:25', tone: '#1e6b52' },
+        { point: 'Pump room', mark: 'Checked · 00:05', tone: '#1e6b52' },
+        { point: 'Children\u2019s play area', mark: 'Gate open — fixed', tone: '#8a6414' },
+        { point: 'Perimeter walk (E → A)', mark: 'Not signed', tone: '#b0491a' },
+      ],
+      incidents: [
+        { what: 'Unregistered visitor argued at gate — police not required', when: '25 Aug, 21:40', status: 'Closed', bg: T.green[0], fg: T.green[1] },
+        { what: 'Two-wheeler scratched in basement (D block bay 12)', when: '22 Aug, 18:05', status: 'Under review', bg: T.amber[0], fg: T.amber[1] },
+        { what: 'Fire alarm false trigger, Block C 2nd floor', when: '18 Aug, 03:15', status: 'Closed', bg: T.green[0], fg: T.green[1] },
+        { what: 'Delivery agent entered without pass', when: '14 Aug, 12:30', status: 'Closed — warning', bg: T.green[0], fg: T.green[1] },
+      ],
+
+      staffKpis: [
+        { label: 'On payroll', value: '14', note: '5 categories', tone: '#8a8a80' },
+        { label: 'Present today', value: '12 / 14', note: '1 leave, 1 absent', tone: '#8a6414' },
+        { label: 'August salary', value: '₹3,18,400', note: 'Release on 5 Sep', tone: '#8a8a80' },
+        { label: 'Overtime hours', value: '46', note: 'Mostly DG duty', tone: '#8a8a80' },
+      ],
+      staffRows: [
+        { name: 'Lakshmi Devi', role: 'Housekeeping', area: 'Blocks A & B', present: '25 / 26', salary: '₹16,500', payout: 'Processed', bg: T.green[0], fg: T.green[1] },
+        { name: 'Shanti Bai', role: 'Housekeeping', area: 'Blocks C & D', present: '26 / 26', salary: '₹16,500', payout: 'Processed', bg: T.green[0], fg: T.green[1] },
+        { name: 'Suresh N.', role: 'Electrician', area: 'Society-wide', present: '24 / 26', salary: '₹28,000', payout: 'Processed', bg: T.green[0], fg: T.green[1] },
+        { name: 'Ravi Kumar', role: 'Plumber', area: 'Society-wide', present: '22 / 26', salary: '₹26,000', payout: 'Hold — leave', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'Murugan S.', role: 'Gardener', area: 'Lawns & podium', present: '20 / 26', salary: '₹15,000', payout: 'Pending', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'Prakash J.', role: 'Manager', area: 'Society office', present: '26 / 26', salary: '₹52,000', payout: 'Processed', bg: T.green[0], fg: T.green[1] },
+        { name: 'Anitha R.', role: 'Housekeeping', area: 'Block E & clubhouse', present: '26 / 26', salary: '₹16,500', payout: 'Processed', bg: T.green[0], fg: T.green[1] },
+      ],
+
+      days: ['Mon 24', 'Tue 25', 'Wed 26', 'Thu 27', 'Fri 28', 'Sat 29', 'Sun 30'],
+      rosterRows: [
+        { duty: 'Common area sweeping', who: ['Lakshmi', 'Lakshmi', 'Shanti', 'Shanti', 'Lakshmi', 'Anitha', 'Anitha'] },
+        { duty: 'Staircase mopping', who: ['Shanti', 'Anitha', 'Anitha', 'Lakshmi', 'Shanti', 'Shanti', 'Off'] },
+        { duty: 'Garbage clearance', who: ['Murugan', 'Murugan', 'Murugan', 'Murugan', 'Murugan', 'Murugan', 'Off'] },
+        { duty: 'Pump / DG check', who: ['Suresh', 'Suresh', 'Suresh', 'Suresh', 'Suresh', 'Ravi', 'Ravi'] },
+        { duty: 'Garden watering', who: ['Murugan', 'Off', 'Murugan', 'Off', 'Murugan', 'Off', 'Murugan'] },
+        { duty: 'Gate supervision', who: ['Prakash', 'Prakash', 'Prakash', 'Prakash', 'Prakash', 'Ganesh', 'Ganesh'] },
+      ].map(r => ({
+        duty: r.duty,
+        cells: r.who.map(w => w === 'Off'
+          ? { who: 'Off', bg: '#f3f1ea', fg: '#a8a49a' }
+          : { who: w, bg: T.green[0], fg: T.green[1] }),
+      })),
+      followUps: [
+        { task: 'Terrace water tank cleaning — Block C', owner: 'Prakash J.', due: '27 Aug', verifier: 'EC — Mr. Menon', status: 'Verified', bg: T.green[0], fg: T.green[1] },
+        { task: 'Basement gate motor servicing', owner: 'Suresh N.', due: '28 Aug', verifier: 'Manager', status: 'In progress', bg: T.amber[0], fg: T.amber[1] },
+        { task: 'Perimeter patrol signature (night)', owner: 'Selvam A.', due: '27 Aug', verifier: 'Security supervisor', status: 'Escalated', bg: T.rust[0], fg: T.rust[1] },
+        { task: 'Pest control — Block E', owner: 'PestShield', due: '27 Aug', verifier: 'Manager', status: 'Scheduled', bg: T.purple[0], fg: T.purple[1] },
+        { task: 'Fire extinguisher refill (6 units)', owner: 'SafeGuard Fire', due: '30 Aug', verifier: 'EC — Mrs. Rao', status: 'Scheduled', bg: T.purple[0], fg: T.purple[1] },
+        { task: 'Lift B controller card fitment', owner: 'Skyline Elevators', due: '28 Aug', verifier: 'Manager', status: 'In progress', bg: T.amber[0], fg: T.amber[1] },
+      ],
+
+      vendors: [...A.vendors,
+        { name: 'Skyline Elevators', service: 'Lift AMC — 4 lifts', phone: '98410 XXXXX', value: '₹1,92,000/yr', renewal: '5 Sep 2026', rtone: '#b0491a', pay: 'Due ₹48,000', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'PowerGen Services', service: 'DG set AMC', phone: '99620 XXXXX', value: '₹84,000/yr', renewal: '31 Mar 2027', rtone: '#5f5f57', pay: 'Clear', bg: T.green[0], fg: T.green[1] },
+        { name: 'SecureVision', service: 'CCTV — 32 cameras', phone: '90035 XXXXX', value: '₹1,20,000/yr', renewal: '18 Nov 2026', rtone: '#5f5f57', pay: 'Due ₹75,000', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'SafeGuard Fire', service: 'Fire equipment', phone: '97890 XXXXX', value: '₹66,000/yr', renewal: '12 Oct 2026', rtone: '#8a6414', pay: 'Clear', bg: T.green[0], fg: T.green[1] },
+        { name: 'PestShield', service: 'Pest control — quarterly', phone: '94441 XXXXX', value: '₹48,000/yr', renewal: '1 Jan 2027', rtone: '#5f5f57', pay: 'Clear', bg: T.green[0], fg: T.green[1] },
+        { name: 'AquaPure', service: 'Water tank cleaning, STP', phone: '93450 XXXXX', value: '₹1,08,000/yr', renewal: '30 Jun 2027', rtone: '#5f5f57', pay: 'Clear', bg: T.green[0], fg: T.green[1] },
+        { name: 'Sri Fuels', service: 'DG diesel supply', phone: '90921 XXXXX', value: 'Per order', renewal: '—', rtone: '#8a8a80', pay: 'Due ₹36,500', bg: T.amber[0], fg: T.amber[1] },
+      ],
+      quotes: [
+        { work: 'Block C exterior painting', vendors: '3 quotations received', range: '₹4.2L – ₹5.6L' },
+        { work: 'Basement waterproofing', vendors: '2 quotations · 1 awaited', range: '₹1.8L – ₹2.1L' },
+        { work: 'Gym equipment servicing', vendors: '2 quotations received', range: '₹22K – ₹31K' },
+        { work: 'Solar lighting, podium', vendors: '1 quotation received', range: '₹3.4L' },
+      ],
+      invoices: [
+        { no: 'INV/SKY/2026/311', who: 'Skyline Elevators · Lift AMC Q3', amount: '₹48,000', due: 'Due in 3 days', tone: '#8a6414' },
+        { no: 'INV/SV/2026/104', who: 'SecureVision · CCTV upgrade advance', amount: '₹75,000', due: 'EC approval pending', tone: '#8a6414' },
+        { no: 'INV/SF/2026/882', who: 'Sri Fuels · diesel, Aug', amount: '₹36,500', due: 'Overdue 6 days', tone: '#b0491a' },
+        { no: 'INV/PS/2026/067', who: 'PestShield · Q2 service', amount: '₹12,000', due: 'Due 5 Sep', tone: '#5f5f57' },
+      ],
+
+      assetKpis: [
+        { label: 'Tagged assets', value: '148', note: 'Across 9 categories', tone: '#8a8a80' },
+        { label: 'Book value', value: '₹1.42 Cr', note: 'Net of depreciation', tone: '#8a8a80' },
+        { label: 'Under AMC', value: '61', note: '41% of assets', tone: '#1e6b52' },
+        { label: 'Needs attention', value: '5', note: '2 out of service', tone: '#b0491a' },
+      ],
+      assets: [...A.assets,
+        { tag: 'LFT-A1', name: 'Passenger lift — Block A', category: 'Lifts', location: 'Block A core', installed: '2018', amc: 'AMC to 5 Sep 2026', condition: 'Good', bg: T.green[0], fg: T.green[1] },
+        { tag: 'LFT-B1', name: 'Passenger lift — Block B', category: 'Lifts', location: 'Block B core', installed: '2018', amc: 'AMC to 5 Sep 2026', condition: 'Under repair', bg: T.rust[0], fg: T.rust[1] },
+        { tag: 'DG-01', name: 'Diesel generator 250 kVA', category: 'Power backup', location: 'DG yard', installed: '2019', amc: 'AMC to 31 Mar 2027', condition: 'Good', bg: T.green[0], fg: T.green[1] },
+        { tag: 'PMP-03', name: 'Booster pump — Block C', category: 'Pumps', location: 'Pump room', installed: '2020', amc: 'Warranty expired', condition: 'Monitor', bg: T.amber[0], fg: T.amber[1] },
+        { tag: 'PNL-01', name: 'Main LT panel', category: 'Electrical', location: 'Substation', installed: '2018', amc: 'Annual thermography', condition: 'Good', bg: T.green[0], fg: T.green[1] },
+        { tag: 'CCTV-07', name: 'Dome camera — basement ramp', category: 'CCTV', location: 'Basement', installed: '2021', amc: 'AMC to 18 Nov 2026', condition: 'Good', bg: T.green[0], fg: T.green[1] },
+        { tag: 'FIRE-12', name: 'Fire extinguisher 6 kg ABC', category: 'Fire safety', location: 'Block D lobby', installed: '2023', amc: 'Refill due 30 Aug', condition: 'Refill due', bg: T.amber[0], fg: T.amber[1] },
+        { tag: 'GYM-04', name: 'Treadmill', category: 'Gym equipment', location: 'Clubhouse gym', installed: '2022', amc: 'No AMC', condition: 'Out of service', bg: T.rust[0], fg: T.rust[1] },
+        { tag: 'FUR-31', name: 'Hall chairs (set of 100)', category: 'Furniture', location: 'Community hall', installed: '2019', amc: '—', condition: 'Good', bg: T.green[0], fg: T.green[1] },
+      ],
+
+      amc: [
+        { equip: 'Lifts (4 nos.)', vendor: 'Skyline Elevators', freq: 'Monthly', next: '5 Sep 2026', status: 'Renewal due', bg: T.rust[0], fg: T.rust[1] },
+        { equip: 'DG set 250 kVA', vendor: 'PowerGen Services', freq: 'Quarterly', next: '15 Sep 2026', status: 'Active', bg: T.green[0], fg: T.green[1] },
+        { equip: 'CCTV — 32 cameras', vendor: 'SecureVision', freq: 'Quarterly', next: '2 Oct 2026', status: 'Active', bg: T.green[0], fg: T.green[1] },
+        { equip: 'Fire equipment', vendor: 'SafeGuard Fire', freq: 'Half-yearly', next: '30 Aug 2026', status: 'Due this week', bg: T.amber[0], fg: T.amber[1] },
+        { equip: 'Water tanks & STP', vendor: 'AquaPure', freq: 'Quarterly', next: '12 Sep 2026', status: 'Active', bg: T.green[0], fg: T.green[1] },
+        { equip: 'Pest control', vendor: 'PestShield', freq: 'Quarterly', next: '27 Aug 2026', status: 'Scheduled today', bg: T.purple[0], fg: T.purple[1] },
+        { equip: 'Booster pumps', vendor: 'In-house (Suresh)', freq: 'Monthly', next: '1 Sep 2026', status: 'Active', bg: T.green[0], fg: T.green[1] },
+      ],
+      reminders: [
+        { what: 'Pest control — Block E', when: 'Today', tone: '#b0491a' },
+        { what: 'Fire extinguisher refill (6)', when: '30 Aug', tone: '#8a6414' },
+        { what: 'Lift AMC renewal', when: '5 Sep', tone: '#b0491a' },
+        { what: 'Water tank cleaning', when: '12 Sep', tone: '#5f5f57' },
+        { what: 'DG quarterly service', when: '15 Sep', tone: '#5f5f57' },
+      ],
+      breakdowns: [
+        { what: 'Controller card fault', when: '26 Aug 2026', note: 'Lift B locked out; spare ordered, ETA 28 Aug.' },
+        { what: 'Door sensor misalignment', when: '11 Jun 2026', note: 'Adjusted on site, no cost under AMC.' },
+        { what: 'Overload sensor trip', when: '3 Feb 2026', note: 'Sensor replaced — ₹4,200 outside AMC scope.' },
+        { what: 'Emergency light battery', when: '19 Nov 2025', note: 'Battery pack replaced under warranty.' },
+      ],
+
+      facilities: [
+        { name: 'Community hall', capacity: 'Seats 120 · 6 slots/week', charge: '₹3,000 / slot', next: 'Booked today', state: 'Booked', bg: T.amber[0], fg: T.amber[1] },
+        { name: 'Party area (podium)', capacity: 'Seats 60', charge: '₹1,500 / slot', next: 'Free', state: 'Available', bg: T.green[0], fg: T.green[1] },
+        { name: 'Gym', capacity: '18 stations', charge: 'Free for residents', next: 'Open 5 am – 10 pm', state: 'Available', bg: T.green[0], fg: T.green[1] },
+        { name: 'Swimming pool', capacity: '25 m · 4 lanes', charge: '₹500 / guest', next: 'Reopens 29 Aug', state: 'Maintenance', bg: T.rust[0], fg: T.rust[1] },
+        { name: 'Sports room', capacity: 'TT, carrom, chess', charge: 'Free for residents', next: 'Free', state: 'Available', bg: T.green[0], fg: T.green[1] },
+        { name: 'Guest suite', capacity: '2 rooms', charge: '₹900 / night', next: '1 room free', state: 'Partly booked', bg: T.amber[0], fg: T.amber[1] },
+      ],
+      bookings: [...A.bookings,
+        { facility: 'Community hall', flat: 'B-2B', date: '27 Aug', slot: '6–10 pm', charge: '₹3,000', deposit: '₹5,000', pay: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { facility: 'Party area', flat: 'A-1A', date: '29 Aug', slot: '7–10 pm', charge: '₹1,500', deposit: '₹2,000', pay: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { facility: 'Community hall', flat: 'D-4C', date: '31 Aug', slot: '11 am–3 pm', charge: '₹3,000', deposit: '₹5,000', pay: 'Pending', bg: T.amber[0], fg: T.amber[1] },
+        { facility: 'Guest suite', flat: 'E-1C', date: '2–4 Sep', slot: '2 nights', charge: '₹1,800', deposit: '—', pay: 'Paid', bg: T.green[0], fg: T.green[1] },
+        { facility: 'Sports room', flat: 'C-1D', date: '3 Sep', slot: '5–7 pm', charge: 'Free', deposit: '—', pay: 'N/A', bg: T.grey[0], fg: T.grey[1] },
+        { facility: 'Community hall', flat: 'A-3B', date: '7 Sep', slot: '4–9 pm', charge: '₹3,000', deposit: '₹5,000', pay: 'Awaiting approval', bg: T.purple[0], fg: T.purple[1] },
+      ],
+
+      reportKpis: [
+        { label: 'Collection %', value: '87.9%', note: 'Target 92%', tone: '#8a6414' },
+        { label: 'Outstanding dues', value: '₹3,49,200', note: '14 flats', tone: '#b0491a' },
+        { label: 'Occupancy', value: '92.3%', note: '96 of 104 flats', tone: '#1e6b52' },
+        { label: 'Vendor payments due', value: '₹1,71,500', note: '4 invoices', tone: '#8a6414' },
+      ],
+      ageing: [
+        { bucket: '0–30 days', amount: '₹1,42,000', pct: '41%', tone: '#1e6b52' },
+        { bucket: '31–60 days', amount: '₹98,600', pct: '28%', tone: '#8a6414' },
+        { bucket: '61–90 days', amount: '₹64,200', pct: '18%', tone: '#c2571f' },
+        { bucket: '90+ days', amount: '₹44,400', pct: '13%', tone: '#b0491a' },
+      ],
+      expenseSplit: [
+        { head: 'Housekeeping', amount: '₹1,58,000', pct: '31%' },
+        { head: 'Electricity & DG', amount: '₹1,24,000', pct: '24%' },
+        { head: 'Security', amount: '₹96,000', pct: '19%' },
+        { head: 'Lift & pumps AMC', amount: '₹58,000', pct: '11%' },
+        { head: 'Repairs', amount: '₹42,200', pct: '8%' },
+        { head: 'Others', amount: '₹32,000', pct: '7%' },
+      ],
+      blockSummary: [
+        { block: 'Block A', flats: 24, occupied: 22, billed: '₹6,84,000', collected: '₹6,32,000', pct: '92.4%', complaints: 3, tone: '#1e6b52' },
+        { block: 'Block B', flats: 16, occupied: 15, billed: '₹4,42,000', collected: '₹4,10,000', pct: '92.8%', complaints: 2, tone: '#1e6b52' },
+        { block: 'Block C', flats: 16, occupied: 13, billed: '₹4,38,000', collected: '₹3,52,000', pct: '80.4%', complaints: 4, tone: '#b0491a' },
+        { block: 'Block D', flats: 24, occupied: 22, billed: '₹6,92,000', collected: '₹5,98,000', pct: '86.4%', complaints: 3, tone: '#8a6414' },
+        { block: 'Block E', flats: 24, occupied: 24, billed: '₹6,19,200', collected: '₹5,34,000', pct: '86.2%', complaints: 2, tone: '#8a6414' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
